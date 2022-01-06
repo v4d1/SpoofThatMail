@@ -10,3 +10,5 @@ One single domain:
 ```
 sh SpoofThatMail.sh -d domain
 ```
+![alt text](https://i.imgur.com/8exMAAs.png)
+
