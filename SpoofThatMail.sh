@@ -5,10 +5,6 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-regex_reject="p\s*=\s*reject"
-regex_quarantine="p\s*=\s*quarantine"
-regex_none="p\s*=\s*none"
-
 help () {
 	echo "Accepted parameters:\n"
 	echo "Use -d along with a domain name, example sh SpoofThatMail.sh -d domain.com"
@@ -22,17 +18,22 @@ check_url () {
 
 	retval=0
 	output=$(nslookup -type=txt _dmarc."$domain")
-	if [[ "$output" =~ $regex_reject ]]; then
-		echo "$domain is ${GREEN}NOT vulnerable${NC}"
-	elif [[ "$output" =~ $regex_quarantine ]]; then
-		echo "$domain ${YELLOW}can be vulnerable${NC} (email will be sent to spam)"
-	elif [[ "$output" =~ $regex_none ]]; then
-		echo "$domain is ${RED}vulnerable${NC}"
-		retval=1
-	else
-		echo "$domain is ${RED}vulnerable${NC} (No DMARC record found)"
-		retval=1
-	fi
+	case "$output" in
+		*p=reject*)
+			echo "$domain is ${GREEN}NOT vulnerable${NC}"
+		;;
+		*p=quarantine*)
+			echo "$domain ${YELLOW}can be vulnerable${NC} (email will be sent to spam)"
+		;;
+		*p=none*)
+			echo "$domain is ${RED}vulnerable${NC}"
+			retval=1
+		;;
+		*)
+			echo "$domain is ${RED}vulnerable${NC} (No DMARC record found)"
+			retval=1
+		;;
+	esac
 	return $retval
 }
 
