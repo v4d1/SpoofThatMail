@@ -5,9 +5,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-regex_reject=";\s*p\s*=\s*reject"
-regex_quarantine=";\s*p\s*=\s*quarantine"
-regex_none=";\s*p\s*=\s*none"
+regex_reject="p\s*=\s*reject"
+regex_quarantine="p\s*=\s*quarantine"
+regex_none="p\s*=\s*none"
 
 help () {
 	echo "Accepted parameters:\n"
