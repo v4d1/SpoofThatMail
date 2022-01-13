@@ -10,7 +10,7 @@ One single domain:
 ```
 sh SpoofThatMail.sh -d domain
 ```
-![image](https://user-images.githubusercontent.com/23397910/149307857-43cc2593-47eb-4b7a-af32-c61d10b5e702.png)
+![image](https://user-images.githubusercontent.com/23397910/149308305-67364f17-9c17-45e5-a023-3ce53bce22ba.png)
 
 The script may not work if sp param is before p param (currently working on this)
 
