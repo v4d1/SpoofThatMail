@@ -15,5 +15,12 @@ sh SpoofThatMail.sh -d domain
 The script may not work if sp param is before p param (currently working on this)
 
 Test manually using nslookup -type=txt _dmarc.domain.com
-XYX.....
-XYX,,,
+
+vsvsd
+
+vds
+vdsv
+
+vdsv
+svdsvs
+45vfdvef454
