@@ -18,22 +18,18 @@ check_url () {
 
 	retval=0
 	output=$(nslookup -type=txt _dmarc."$domain")
-	case "$output" in
-		*p=reject*)
-			echo "$domain is ${GREEN}NOT vulnerable${NC}"
-		;;
-		*p=quarantine*)
-			echo "$domain ${YELLOW}can be vulnerable${NC} (email will be sent to spam)"
-		;;
-		*p=none*)
-			echo "$domain is ${RED}vulnerable${NC}"
-			retval=1
-		;;
-		*)
-			echo "$domain is ${RED}vulnerable${NC} (No DMARC record found)"
-			retval=1
-		;;
-	esac
+
+	if [ -n "$(echo "$output" | egrep "\;[^s]*p[s]*\s*=\s*reject\s*")" ];then
+		echo "$domain is ${GREEN}NOT vulnerable${NC}"
+	elif [ -n "$(echo "$output" | egrep "\;[^s]*p[s]*\s*=\s*quarantine\s*")" ];then
+		echo "$domain ${YELLOW}can be vulnerable${NC} (email will be sent to spam)"
+	elif [ -n "$(echo "$output" | egrep "\;[^s]*p[s]*\s*=\s*none\s*")" ];then
+		echo "$domain is ${RED}vulnerable${NC}"
+		retval=1
+	else
+		echo "$domain is ${RED}vulnerable${NC} (No DMARC record found)"
+		retval=1
+	fi
 	return $retval
 }
 
