@@ -6,11 +6,11 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 help () {
-	echo "Accepted parameters:\n"
+	echo -e "Accepted parameters:\n"
 	echo "Use -d along with a domain name, example sh SpoofThatMail.sh -d domain.com"
-	echo "Null string will be detected and ignored\n"
+	echo -e "Null string will be detected and ignored\n"
 	echo "Use -f along with a file containing domain names, example sh SpoofThatMail.sh -f domains.txt"
-	echo "Note that the path provided for the file must be a valid one\n"
+	echo -e "Note that the path provided for the file must be a valid one\n"
 }
 
 check_url () {
@@ -45,7 +45,7 @@ check_file () {
 			check_url $line
 			VULNERABLES=$((VULNERABLES=VULNERABLES+$?))
 		done < $input
-		echo "\n$VULNERABLES out of $COUNTER domains are ${RED}vulnerable ${NC}"
+		echo -e "\n$VULNERABLES out of $COUNTER domains are ${RED}vulnerable ${NC}"
 
 }
 
@@ -86,7 +86,7 @@ echo "
                                                                  
 "
 if [ $# != 2  ];then
-	echo "Wrong execution\n"
+	echo -e "Wrong execution\n"
 	help
 	exit 0
 fi
